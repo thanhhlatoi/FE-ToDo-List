@@ -10,40 +10,40 @@
     <!-- Sidebar -->
     <aside 
       :class="[
-        'fixed top-0 left-0 h-full bg-coral-500 text-white transform transition-transform duration-300 ease-in-out z-40 lg:translate-x-0 lg:static lg:inset-0 lg:z-auto',
+        'fixed top-0 left-0 h-full bg-coral-500 text-white transform transition-transform duration-300 ease-in-out z-40 lg:translate-x-0 lg:relative lg:inset-0 lg:z-auto',
         isOpen ? 'translate-x-0' : '-translate-x-full'
       ]"
-      class="w-80 shadow-xl flex flex-col sidebar-position"
+      class="w-64 shadow-xl flex flex-col sidebar-position"
     >
       <!-- Sidebar Header with User Profile -->
-      <div class="p-6 border-b border-coral-600">
-        <div class="flex flex-col items-center space-y-4">
+      <div class="p-4 border-b border-coral-600">
+        <div class="flex flex-col items-center space-y-3">
           <!-- Profile Avatar -->
           <div class="relative">
             <img 
               src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face" 
               alt="Profile Picture"
-              class="w-20 h-20 rounded-full border-4 border-white shadow-lg object-cover"
+              class="w-16 h-16 rounded-full border-3 border-white shadow-lg object-cover"
             />
           </div>
           
           <!-- User Info -->
           <div class="text-center">
-            <h2 class="text-xl font-bold text-white">Sundar Gurung</h2>
-            <p class="text-sm text-coral-100 mt-1">sundargurung360@gmail.com</p>
+            <h2 class="text-lg font-bold text-white">Sundar Gurung</h2>
+            <p class="text-xs text-coral-100 mt-0.5">sundargurung360@gmail.com</p>
           </div>
         </div>
       </div>
 
       <!-- Navigation Menu -->
-      <nav class="flex-1 px-4 py-6">
-        <ul class="space-y-2">
+      <nav class="flex-1 px-3 py-4">
+        <ul class="space-y-1">
           <!-- Dashboard -->
           <li>
             <NuxtLink 
               to="/" 
               :class="[
-                'flex items-center px-4 py-3 rounded-lg text-white transition-all duration-200',
+                'flex items-center px-3 py-2.5 rounded-lg text-white transition-all duration-200 text-sm',
                 $route.path === '/' ? 'bg-white text-coral-500 shadow-lg' : 'hover:bg-coral-600'
               ]"
             >
@@ -59,7 +59,7 @@
             <NuxtLink 
               to="/vital-tasks" 
               :class="[
-                'flex items-center px-4 py-3 rounded-lg text-white transition-all duration-200',
+                'flex items-center px-3 py-2.5 rounded-lg text-white transition-all duration-200 text-sm',
                 $route.path === '/vital-tasks' ? 'bg-white text-coral-500 shadow-lg' : 'hover:bg-coral-600'
               ]"
             >
@@ -75,7 +75,7 @@
             <NuxtLink 
               to="/tasks" 
               :class="[
-                'flex items-center px-4 py-3 rounded-lg text-white transition-all duration-200',
+                'flex items-center px-3 py-2.5 rounded-lg text-white transition-all duration-200 text-sm',
                 $route.path === '/tasks' ? 'bg-white text-coral-500 shadow-lg' : 'hover:bg-coral-600'
               ]"
             >
@@ -91,7 +91,7 @@
             <NuxtLink 
               to="/categories" 
               :class="[
-                'flex items-center px-4 py-3 rounded-lg text-white transition-all duration-200',
+                'flex items-center px-3 py-2.5 rounded-lg text-white transition-all duration-200 text-sm',
                 $route.path === '/categories' ? 'bg-white text-coral-500 shadow-lg' : 'hover:bg-coral-600'
               ]"
             >
@@ -107,7 +107,7 @@
             <NuxtLink 
               to="/settings" 
               :class="[
-                'flex items-center px-4 py-3 rounded-lg text-white transition-all duration-200',
+                'flex items-center px-3 py-2.5 rounded-lg text-white transition-all duration-200 text-sm',
                 $route.path === '/settings' ? 'bg-white text-coral-500 shadow-lg' : 'hover:bg-coral-600'
               ]"
             >
@@ -123,7 +123,7 @@
             <NuxtLink 
               to="/help" 
               :class="[
-                'flex items-center px-4 py-3 rounded-lg text-white transition-all duration-200',
+                'flex items-center px-3 py-2.5 rounded-lg text-white transition-all duration-200 text-sm',
                 $route.path === '/help' ? 'bg-white text-coral-500 shadow-lg' : 'hover:bg-coral-600'
               ]"
             >
@@ -137,10 +137,10 @@
       </nav>
 
       <!-- Logout Section -->
-      <div class="p-4 border-t border-coral-600">
+      <div class="p-3 border-t border-coral-600">
         <button 
           @click="handleLogout"
-          class="w-full flex items-center px-4 py-3 rounded-lg text-white hover:bg-coral-600 transition-all duration-200"
+          class="w-full flex items-center px-3 py-2.5 rounded-lg text-white hover:bg-coral-600 transition-all duration-200 text-sm"
         >
           <svg class="w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20">
             <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
@@ -260,11 +260,13 @@ onUnmounted(() => {
   top: 0;
 }
 
-/* On desktop, start from top (header will be above) */
+/* On desktop, relative positioning within flex layout */
 @media (min-width: 1024px) {
   .sidebar-position {
-    top: 0;
+    position: relative;
+    top: auto;
     height: 100vh;
+    flex-shrink: 0;
   }
 }
 </style>
