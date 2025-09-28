@@ -10,7 +10,10 @@ export default defineNuxtConfig({
   },
   // Production configuration
   nitro: {
-    preset: 'static'
+    preset: 'static',
+    prerender: {
+      crawlLinks: false
+    }
   },
   // Build configuration
   build: {
