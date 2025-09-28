@@ -27,6 +27,7 @@
       <TheSider 
         :mobile-open="isSidebarOpen" 
         @toggle-sidebar="handleSidebarToggle"
+        @logout="handleLogout"
       />
 
       <!-- Main Content Area - Maximized -->
@@ -45,6 +46,9 @@
 <script setup>
 import { ref } from 'vue'
 
+// Use auth composable
+const { logout, user } = useAuth()
+
 // Reactive state
 const isSidebarOpen = ref(false)
 
@@ -55,5 +59,9 @@ const toggleSidebar = () => {
 
 const handleSidebarToggle = (isOpen) => {
   isSidebarOpen.value = isOpen
+}
+
+const handleLogout = () => {
+  logout()
 }
 </script>

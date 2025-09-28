@@ -167,7 +167,7 @@ const props = defineProps({
 })
 
 // Emits
-const emit = defineEmits(['toggle-sidebar'])
+const emit = defineEmits(['toggle-sidebar', 'logout'])
 
 // Methods
 const toggleSidebar = () => {
@@ -176,10 +176,8 @@ const toggleSidebar = () => {
 }
 
 const handleLogout = () => {
-  // Handle logout logic here
-  console.log('Logout clicked')
-  // You can add your logout logic here
-  // For example: clear tokens, redirect to login, etc.
+  // Emit logout event to parent
+  emit('logout')
 }
 
 // Watch for mobile open prop changes

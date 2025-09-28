@@ -10,7 +10,10 @@
         </div>
         <h3 class="text-base font-semibold text-coral-500">To-Do</h3>
       </div>
-      <button class="flex items-center text-gray-600 hover:text-gray-800 text-sm font-medium">
+      <button 
+        @click="$emit('add-task')"
+        class="flex items-center text-gray-600 hover:text-gray-800 text-sm font-medium transition-colors duration-200"
+      >
         <svg class="w-4 h-4 text-red-500 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
         </svg>
@@ -102,6 +105,9 @@
 <script setup>
 import { ref } from 'vue'
 
+// Emits
+const emit = defineEmits(['add-task'])
+
 // Props
 const props = defineProps({
   recentTasks: {
@@ -138,9 +144,4 @@ const props = defineProps({
   }
 })
 
-// Methods
-const handleAddTask = () => {
-  console.log('Add task clicked')
-  // Add your add task logic here
-}
 </script>

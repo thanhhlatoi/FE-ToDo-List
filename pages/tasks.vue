@@ -1,97 +1,99 @@
 <template>
-  <div class="min-h-screen bg-gray-50 py-8">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-4">Danh sách công việc</h1>
-        <p class="text-gray-600">Quản lý các công việc hàng ngày của bạn</p>
-      </div>
-
-      <!-- Add new task form -->
-      <div class="bg-white rounded-lg shadow-md p-6 mb-6">
-        <h2 class="text-xl font-semibold mb-4">Thêm công việc mới</h2>
-        <form @submit.prevent="addTask" class="flex gap-4">
-          <input
-            v-model="newTask"
-            type="text"
-            placeholder="Nhập công việc mới..."
-            class="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          >
-          <button
-            type="submit"
-            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300"
-          >
-            Thêm
-          </button>
-        </form>
-      </div>
-
-      <!-- Tasks list -->
-      <div class="bg-white rounded-lg shadow-md">
-        <div class="p-6">
-          <h2 class="text-xl font-semibold mb-4">Công việc hiện tại</h2>
-          <div v-if="tasks.length === 0" class="text-gray-500 text-center py-8">
-            Chưa có công việc nào. Hãy thêm công việc đầu tiên!
-          </div>
-          <div v-else class="space-y-3">
-            <div
-              v-for="(task, index) in tasks"
-              :key="index"
-              class="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-300"
-            >
-              <div class="flex items-center">
-                <input
-                  v-model="task.completed"
-                  type="checkbox"
-                  class="mr-3 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                >
-                <span :class="task.completed ? 'line-through text-gray-500' : 'text-gray-900'">
-                  {{ task.text }}
-                </span>
-              </div>
-              <button
-                @click="removeTask(index)"
-                class="text-red-500 hover:text-red-700 transition duration-300"
-              >
-                Xóa
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="min-h-screen bg-gray-50">
+    <TheMyTask :tasks="myTasks" />
   </div>
 </template>
 
 <script setup>
+import { ref } from 'vue'
+import TheMyTask from '~/components/TheMyTask/index.vue'
+
+// Add auth middleware
+definePageMeta({
+  middleware: 'auth'
+})
+
 // Page metadata
 useHead({
-  title: 'Danh sách công việc - ToDo App',
+  title: 'My Tasks - ToDo App',
   meta: [
-    { name: 'description', content: 'Quản lý công việc hàng ngày' }
+    { name: 'description', content: 'Quản lý các công việc cá nhân của bạn' }
   ]
 })
 
-// Reactive data
-const newTask = ref('')
-const tasks = ref([
-  { text: 'Học Nuxt.js', completed: false },
-  { text: 'Tạo ứng dụng ToDo', completed: true },
-  { text: 'Deploy lên production', completed: false }
-])
-
-// Methods
-const addTask = () => {
-  if (newTask.value.trim()) {
-    tasks.value.push({
-      text: newTask.value.trim(),
-      completed: false
-    })
-    newTask.value = ''
+// Mock data for my tasks
+const myTasks = ref([
+  {
+    id: 1,
+    title: "Complete project documentation",
+    description: "Write comprehensive documentation for the new API endpoints and update user guides....",
+    detailedDescription: "Create detailed documentation for all new API endpoints, including request/response examples, error codes, and authentication requirements. Update the user guide with new features and provide code samples for common use cases.",
+    priority: "High",
+    status: "In Progress",
+    createdDate: "18/06/2023",
+    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=200&h=200&fit=crop&crop=faces",
+    activities: [
+      "Review existing documentation",
+      "Create API endpoint documentation",
+      "Write user guide updates",
+      "Add code examples",
+      "Review and proofread",
+      "Publish documentation"
+    ]
+  },
+  {
+    id: 2,
+    title: "Update user interface design",
+    description: "Redesign the dashboard interface to improve user experience and accessibility....",
+    detailedDescription: "Redesign the main dashboard interface with focus on user experience, accessibility, and modern design principles. Include responsive design for mobile devices and ensure compliance with accessibility standards.",
+    priority: "Moderate", 
+    status: "Not Started",
+    createdDate: "17/06/2023",
+    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=200&h=200&fit=crop&crop=faces",
+    activities: [
+      "Conduct user research",
+      "Create wireframes",
+      "Design mockups",
+      "Implement responsive design",
+      "Test accessibility",
+      "Gather user feedback"
+    ]
+  },
+  {
+    id: 3,
+    title: "Fix critical bug in payment system",
+    description: "Resolve the payment processing issue that's causing transaction failures....",
+    detailedDescription: "Investigate and fix the critical bug in the payment processing system that's causing some transactions to fail. This affects user experience and revenue, so it needs immediate attention.",
+    priority: "Extreme", 
+    status: "In Progress",
+    createdDate: "19/06/2023",
+    image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=200&h=200&fit=crop&crop=faces",
+    activities: [
+      "Reproduce the bug",
+      "Analyze error logs",
+      "Identify root cause",
+      "Implement fix",
+      "Test thoroughly",
+      "Deploy to production"
+    ]
+  },
+  {
+    id: 4,
+    title: "Plan team meeting agenda",
+    description: "Prepare agenda and materials for next week's team meeting....",
+    detailedDescription: "Create a comprehensive agenda for the weekly team meeting, including project updates, upcoming deadlines, and discussion topics. Prepare any necessary materials and presentations.",
+    priority: "Low", 
+    status: "Completed",
+    createdDate: "15/06/2023",
+    image: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=200&h=200&fit=crop&crop=faces",
+    activities: [
+      "Review previous meeting notes",
+      "Collect project updates",
+      "Identify discussion topics",
+      "Prepare presentation slides",
+      "Send meeting invitation",
+      "Follow up on action items"
+    ]
   }
-}
-
-const removeTask = (index) => {
-  tasks.value.splice(index, 1)
-}
+])
 </script>
