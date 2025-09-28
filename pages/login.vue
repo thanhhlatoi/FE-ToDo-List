@@ -9,6 +9,7 @@
       <div class="absolute top-80 left-10 w-3 h-3 bg-white rounded-full"></div>
       <div class="absolute top-32 left-60 w-4 h-4 bg-white rounded-full"></div>
       <div class="absolute top-52 left-80 w-2 h-2 bg-white rounded-full"></div>
+
       <div class="absolute top-72 left-100 w-3 h-3 bg-white rounded-full"></div>
       
       <!-- Square patterns -->
